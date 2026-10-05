@@ -1,0 +1,1292 @@
+/* ==========================================================================
+   Portfolio Claymorphism Design System
+   Visual Style: Soft Claymorphism, Pastel Mint & Cream, Dark Muted Green
+   ========================================================================== */
+
+/* Design Tokens */
+:root {
+  /* Colors */
+  --bg-page: #ffffff;
+  --sidebar-mint: #c9ded9;
+  --active-cream: #f5f1e7;
+  --text-dark-green: #26433b;
+  --text-muted: #2d4a43;
+  
+  /* Clay Shadows for Sidebar */
+  --sidebar-outer-shadow: 
+    18px 24px 45px rgba(160, 190, 182, 0.38),
+    2px 8px 16px rgba(40, 70, 62, 0.04);
+  --sidebar-inner-shadow: 
+    inset 3px 3px 6px rgba(255, 255, 255, 0.75),
+    inset -3px -3px 6px rgba(155, 185, 178, 0.4);
+
+  /* Clay Shadows for Active Item (Timbul / Embossed Clay) */
+  --active-outer-shadow: 
+    0 10px 22px rgba(40, 70, 62, 0.12),
+    0 3px 6px rgba(0, 0, 0, 0.04);
+  --active-inner-shadow: 
+    inset 2.5px 2.5px 4px rgba(255, 255, 255, 0.95),
+    inset -2.5px -2.5px 5px rgba(205, 195, 180, 0.45);
+
+  /* Hover Shadow */
+  --hover-shadow: 
+    0 4px 12px rgba(40, 70, 62, 0.06),
+    inset 1px 1px 3px rgba(255, 255, 255, 0.6);
+
+  /* Typography */
+  --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  /* Transitions */
+  --transition-smooth: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-standard: all 0.25s ease;
+}
+
+/* Reset & Box Sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+/* Accessibility: Global Focus State */
+:focus-visible {
+  outline: 3px solid rgba(160, 190, 182, 0.9);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-page);
+  color: var(--text-dark-green);
+  min-height: 100vh;
+  display: flex;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================================================
+   Header & Sidebar Layout
+   ========================================================================== */
+.portfolio-header {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  bottom: 24px;
+  z-index: 100;
+  display: flex;
+}
+
+/* Claymorphism Sidebar */
+.clay-sidebar {
+  width: 190px; /* Dilebarkan sedikit agar tidak terlalu sempit */
+  height: 100%;
+  background-color: var(--sidebar-mint);
+  border-radius: 44px;
+  padding: 40px 24px; /* Padding dikembalikan normal */
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--sidebar-outer-shadow), var(--sidebar-inner-shadow);
+  position: relative;
+  transition: var(--transition-standard);
+}
+
+/* Nav Menu List */
+.nav-menu {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Jarak antar menu diperbesar */
+}
+
+.nav-item {
+  width: 100%;
+}
+
+/* Nav Links */
+.nav-link {
+  display: inline-flex; /* Fit content to make pill smaller like mockup */
+  align-items: center;
+  gap: 16px;
+  padding: 12px 20px;
+  border-radius: 30px;
+  text-decoration: none;
+  color: var(--text-dark-green);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+  transition: var(--transition-smooth);
+  position: relative;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Icon */
+.nav-icon {
+  font-size: 1.2rem;
+  width: 24px;
+  text-align: center;
+  color: var(--text-dark-green);
+  transition: transform 0.25s ease;
+}
+
+.nav-text {
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* Inactive Hover Effect */
+.nav-link:hover:not(.active) {
+  background-color: rgba(245, 241, 231, 0.45);
+  box-shadow: var(--hover-shadow);
+  transform: translateX(4px);
+}
+
+.nav-link:hover:not(.active) .nav-icon {
+  transform: scale(1.1);
+}
+
+/* ==========================================================================
+   Active Menu State: Clay Timbul (Embossed Clay Button)
+   ========================================================================== */
+.nav-link.active {
+  background-color: var(--active-cream);
+  color: var(--text-dark-green);
+  box-shadow: var(--active-outer-shadow), var(--active-inner-shadow);
+  transform: translateY(-2px);
+}
+
+.nav-link.active .nav-icon {
+  transform: scale(1.08);
+}
+
+/* Pressed State */
+.nav-link:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 
+    0 4px 8px rgba(40, 70, 62, 0.08),
+    inset 3px 3px 5px rgba(185, 175, 160, 0.4);
+}
+
+/* ==========================================================================
+   Main Content Area (Smooth Scroll Anchor Targets)
+   ========================================================================== */
+main {
+  margin-left: 0; /* Let it span full width so character is perfectly centered */
+  flex: 1;
+  width: 100%;
+}
+
+.portfolio-section {
+  min-height: 100vh;
+  padding: 60px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.section-card {
+  background: #fafcfb;
+  border-radius: 32px;
+  padding: 40px;
+  border: 1px solid rgba(201, 222, 217, 0.5);
+  box-shadow: 0 10px 30px rgba(201, 222, 217, 0.2);
+}
+
+.section-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: var(--text-dark-green);
+  margin-bottom: 16px;
+}
+
+.section-description {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   Home Section
+   ========================================================================== */
+.home-section {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--bg-page);
+}
+
+.home-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Matrix Canvas Umum */
+.matrix-canvas {
+  position: absolute;
+  top: 6vh; /* Diturunkan sedikit agar sejajar dengan tinggi awal gambar cewek */
+  height: 94vh;
+  z-index: 1; 
+  pointer-events: none; /* Klik tembus */
+  opacity: 0.25; /* Transparan agar samar-samar seperti gambar referensi */
+}
+
+/* Canvas Kiri */
+.matrix-canvas.left {
+  left: 20%;
+  width: 25vw;
+}
+
+/* Canvas Kanan */
+.matrix-canvas.right {
+  right: 5%; /* Menghindari nabrak margin kanan */
+  width: 25vw;
+}
+
+/* Background Layer */
+.bg-layer {
+  z-index: 1;
+  /* Background dihapus sesuai permintaan */
+  background: transparent;
+}
+
+/* Character Layer */
+.char-layer {
+  z-index: 2;
+  align-items: flex-end; /* Character at bottom center */
+}
+
+.home-character {
+  /* Responsive sizing: maksimal 95vh, tapi akan mengecil mengikuti lebar layar (vw) saat tab disempitkan */
+  max-width: 100%;
+  height: clamp(40vh, 65vw, 95vh);
+  object-fit: contain;
+  object-position: bottom center;
+  /* Menghilangkan kotak background putih pada gambar */
+  mix-blend-mode: multiply;
+  /* Menggeser karakter sedikit ke kanan */
+  transform: translateX(5vw);
+}
+
+/* Title Layer */
+.title-layer {
+  z-index: 3;
+  align-items: flex-end;
+  padding-bottom: 8vh; /* Position over the lower chest/waist */
+  /* Menggeser teks searah dengan karakter */
+  transform: translateX(5vw);
+}
+
+.portfolio-name {
+  font-size: clamp(2.4rem, 5vw, 4.2rem); /* Ukuran teks dinamis sesuai lebar layar */
+  font-weight: 800;
+  color: var(--text-dark-green);
+  background-color: var(--sidebar-mint);
+  padding: clamp(10px, 1.5vw, 14px) clamp(24px, 4vw, 44px); /* Padding dinamis */
+  border-radius: 40px; /* Pill shape */
+  
+  /* Soft claymorphism shadows */
+  box-shadow: 
+    0 15px 35px rgba(160, 190, 182, 0.4),
+    0 5px 15px rgba(40, 70, 62, 0.08),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.6),
+    inset -2px -2px 6px rgba(155, 185, 178, 0.5);
+  
+  /* Bouncy diagonal floating animation */
+  animation: floatSubtle 8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite; /* Diperlambat lagi */
+  text-align: center;
+}
+
+@keyframes floatSubtle {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  20% { transform: translate(14px, -16px) rotate(4deg); } 
+  25% { transform: translate(12px, -12px) rotate(3deg); } /* Efek bounce (pantulan kecil) */
+  50% { transform: translate(0, 0) rotate(0deg); } 
+  70% { transform: translate(-14px, -16px) rotate(-4deg); }
+  75% { transform: translate(-12px, -12px) rotate(-3deg); } /* Efek bounce */
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+/* ==========================================================================
+   About Section
+   ========================================================================== */
+.about-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 80px 40px 80px 280px; /* Memberikan ruang ekstra di kiri agar tidak tertabrak sidebar (220px + margin) */
+  background-color: var(--bg-page);
+}
+
+.about-container {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 80px;
+  align-items: center;
+}
+
+.about-left {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Memastikan lanyard selalu berada di atas teks dan sidebar */
+  position: relative;
+  z-index: 110;
+  /* Menggeser ke kiri agar overlap dengan sidebar, tapi agak ke kanan sedikit sesuai permintaan */
+  transform: translateX(-20px);
+}
+
+.lanyard-img {
+  max-width: 100%;
+  height: auto;
+  max-height: 85vh;
+  object-fit: contain;
+  /* Hilangkan kotak background putih jika ada */
+  mix-blend-mode: multiply;
+  
+  /* Lanyard Drag properties */
+  transform-origin: top center;
+  will-change: transform;
+  cursor: grab;
+  /* Mencegah native drag (ghost image) dan scroll mobile saat ditarik */
+  -webkit-user-drag: none;
+  touch-action: none; 
+}
+
+.lanyard-img.dragging {
+  cursor: grabbing;
+  /* Matikan transisi saat di-drag agar pergerakan responsif instan */
+  transition: none; 
+}
+
+.lanyard-img.spring-back {
+  /* Animasi memantul seperti per (spring) ketika dilepas */
+  transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.about-right {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  /* Menggeser blok teks About sedikit ke tengah (dikurangi geseran kirinya) */
+  transform: translateX(-15px);
+}
+
+.about-heading {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--text-dark-green);
+  line-height: 1.15;
+  margin-bottom: 24px;
+}
+
+.typing-cursor {
+  display: inline-block;
+  font-weight: 300;
+  color: var(--text-dark-green);
+  animation: blinkCursor 0.9s step-end infinite;
+  margin-left: 0; /* Hapus spasi agar kursor menempel dengan teks */
+  /* Membuat cursor tidak memakan ruang lebar agar teks tidak turun/wrap ke baris baru */
+  width: 0; 
+  overflow: visible;
+}
+
+@keyframes blinkCursor {
+  50% { opacity: 0; }
+}
+
+.about-intro {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+  margin-bottom: 50px;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 40px;
+  column-gap: 60px;
+}
+
+.about-block {
+  border-top: 1px solid rgba(38, 67, 59, 0.15); /* Thin editorial divider */
+  padding-top: 24px;
+}
+
+.block-title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: var(--text-dark-green);
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.block-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.block-list li {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   Project Section
+   ========================================================================== */
+.project-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 80px 40px 80px 280px; /* Sama dengan About, memberi ruang untuk sidebar */
+  background-color: var(--bg-page);
+}
+
+.project-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.project-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.project-heading {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #3b4c48;
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  transform: translateX(-16px); /* Menggeser ke kiri sedikit agar sejajar dengan posisi kartu proyek */
+}
+
+/* Garis tipis di kiri dan kanan judul */
+.project-heading::before,
+.project-heading::after {
+  content: "";
+  flex: 1;
+  height: 1.5px;
+  background-color: #7b8e88;
+  margin: 0 30px;
+  max-width: 200px;
+}
+
+.slider-wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 16px;
+  /* Biarkan shadow tombol tetap terlihat */
+  overflow: visible;
+}
+
+.slider-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background-color: #eaf1ee;
+  color: #3b4c48;
+  font-size: 1rem;
+  cursor: pointer;
+  flex-shrink: 0; /* Jangan sampai tombol dikecilkan flex */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  /* Neumorphism ringan */
+  box-shadow: 
+    -4px -4px 8px rgba(255,255,255,0.9), 
+    4px 4px 10px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+}
+
+.slider-btn:hover {
+  box-shadow: 
+    -2px -2px 4px rgba(255,255,255,0.9), 
+    2px 2px 6px rgba(0,0,0,0.12);
+  color: #26433b;
+}
+
+.slider-btn:active {
+  box-shadow: 
+    inset 3px 3px 6px rgba(0,0,0,0.08),
+    inset -3px -3px 6px rgba(255,255,255,0.9);
+}
+
+.project-slider {
+  display: flex;
+  gap: 48px; /* Jarak antar project diperbesar (awalnya 24px) */
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 40px 24px 60px 8px; /* Padding kiri dikurangi agar isi slider agak bergeser ke kiri */
+  scroll-padding-left: 8px; /* Agar snap sejajar dengan padding kiri */
+  /* Sembunyikan scrollbar native */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  flex: 1; /* Ambil sisa ruang setelah tombol kiri dan kanan */
+}
+
+.project-slider::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hapus ruang ekstra palsu karena menyebabkan over-scroll di akhir carousel */
+.project-slider::after {
+  display: none;
+}
+
+.project-card {
+  /* Di desktop, tampilkan 3 card: (100% - 2*48px gap) / 3 */
+  flex: 0 0 calc((100% - 96px) / 3);
+  scroll-snap-align: start; /* Ubah ke start agar rata kiri dan tidak loncat/memotong card */
+  background-color: #eaf1ee;
+  border-radius: 24px;
+  padding: 28px 28px 24px 28px;
+  position: relative;
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+
+  /* Neumorphism timbul */
+  box-shadow: 
+    -10px -10px 20px rgba(255,255,255,0.75),
+    10px 10px 20px rgba(0,0,0,0.09);
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+}
+
+.card-number {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #a4b4b0;
+  margin-bottom: 16px;
+  line-height: 1;
+}
+
+.card-image-placeholder {
+  width: 100%;
+  aspect-ratio: 1/1; /* Diubah jadi 1/1 (kotak) agar kartu jadi portrait */
+  background-color: #f3f8f6; /* Sedikit lebih terang dari card */
+  border-radius: 16px;
+  margin-bottom: 24px;
+  border: none;
+  padding: 0;
+  outline: none;
+  font-family: inherit;
+  /* Shadow ke dalam menyerupai lubang ukiran */
+  box-shadow: 
+    inset 8px 8px 16px rgba(0,0,0,0.05), 
+    inset -8px -8px 16px rgba(255,255,255,0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Menggunakan clamp untuk font-size agar responsif mengecil saat viewport menyempit */
+  font-size: clamp(1.5rem, 4vw, 4rem);
+  color: #3b4c48;
+  cursor: pointer;
+}
+
+.project-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #3b4c48;
+  text-align: center;
+  padding: 4px 0 8px;
+}
+
+/* ==========================================================================
+   Project Modal
+   ========================================================================== */
+.project-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Hidden by default */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.project-modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(20, 25, 22, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.modal-close {
+  /* Tombol X di pojok kanan atas layar, di luar kartu */
+  position: fixed;
+  top: 36px;   /* Diturunkan ke bawah sedikit */
+  right: 36px; /* Digeser ke kiri sedikit */
+  z-index: 1001;
+  width: 56px;
+  height: 56px;
+  border: none;
+  outline: none; /* Menghilangkan kotak biru saat di-klik */
+  -webkit-tap-highlight-color: transparent; /* Menghilangkan kotak biru di mobile */
+  background-color: transparent; /* Tanpa background */
+  color: #fff;
+  font-size: 3rem; /* Diperbesar signifikan */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.modal-close:hover {
+  background-color: transparent;
+  opacity: 0.7;
+  transform: scale(1.1);
+}
+
+.modal-content {
+  position: relative;
+  z-index: 1;
+  background-color: #eaf1ee;
+  border-radius: 28px;
+  padding: 40px;
+  width: min(85vw, 380px);
+  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Neumorphism */
+  box-shadow: 
+    -12px -12px 24px rgba(255,255,255,0.2),
+    12px 12px 32px rgba(0,0,0,0.3);
+  
+  /* Scale animation */
+  transform: scale(0.82);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.project-modal.is-open .modal-content {
+  transform: scale(1);
+}
+
+.modal-body {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14rem; /* Ikon diperbesar sesuai permintaan (awalnya 8rem) */
+  color: #3b4c48;
+}
+
+/* Sembunyikan title di modal - hanya tampilkan ikon */
+.modal-title {
+  display: none;
+}
+
+/* ==========================================================================
+   Floating WhatsApp Button
+   ========================================================================== */
+.whatsapp-fab {
+  position: fixed;
+  bottom: 36px;
+  right: 36px;
+  z-index: 500;
+  
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  
+  background-color: var(--sidebar-mint);
+  color: var(--text-dark-green);
+  font-size: 2rem;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  
+  /* Claymorphism — sama dengan sidebar */
+  box-shadow:
+    0 12px 30px rgba(160, 190, 182, 0.5),
+    inset 3px 3px 6px rgba(255, 255, 255, 0.7),
+    inset -3px -3px 8px rgba(155, 185, 178, 0.5);
+  
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.whatsapp-fab:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 20px 40px rgba(160, 190, 182, 0.6),
+    inset 3px 3px 6px rgba(255, 255, 255, 0.7),
+    inset -3px -3px 8px rgba(155, 185, 178, 0.5);
+}
+
+.whatsapp-fab:active {
+  transform: translateY(0);
+  box-shadow:
+    0 6px 15px rgba(160, 190, 182, 0.4),
+    inset 4px 4px 8px rgba(155, 185, 178, 0.6),
+    inset -2px -2px 4px rgba(255, 255, 255, 0.7);
+}
+
+/* ==========================================================================
+   Contact Envelope Section
+   ========================================================================== */
+.contact-section {
+  padding-left: 280px;
+  padding-right: 40px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.envelope-wrapper {
+  position: relative;
+  width: 100%;
+  height: clamp(300px, 35vw, 420px); /* Responsif mengecil di tab sempit, tapi maksimal persis seperti asli */
+  margin-top: clamp(40px, 5vw, 60px);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+}
+
+/* Bagian Belakang Amplop (Lebih Gelap) */
+.envelope-back {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: clamp(200px, 23.3vw, 280px); /* Menyesuaikan proporsi saat tab dikecilkan */
+  background-color: #b3c9c4;
+  border-radius: 20px 20px 32px 32px;
+  z-index: 1;
+  box-shadow: 
+    8px 12px 24px rgba(40, 70, 62, 0.12),
+    inset 3px 3px 6px rgba(0, 0, 0, 0.04);
+}
+
+/* Surat (Di dalam Amplop) */
+.letter {
+  position: absolute;
+  bottom: 20px; /* Ditekan lebih dalam ke dalam amplop */
+  left: 5%;
+  width: 90%;
+  background-color: var(--active-cream);
+  border-radius: 24px;
+  padding: clamp(32px, 4vw, 48px) clamp(24px, 2.6vw, 32px); /* Padding menyusut otomatis */
+  z-index: 2;
+  text-align: center;
+  /* Animasi turun (masuk kembali): tanpa bounce (ease-out) agar surat tidak tembus ke bawah amplop */
+  transition: transform 0.5s ease-out;
+  box-shadow: 
+    0 4px 16px rgba(40, 70, 62, 0.08),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.9);
+}
+
+/* Interaksi Hover: Surat Naik */
+.envelope-wrapper:hover .letter {
+  transform: translateY(clamp(-140px, -11.6vw, -100px)); /* Naik secara dinamis sesuai ukuran layar */
+  /* Animasi naik: menggunakan efek bounce (membal) agar terasa dinamis */
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.letter-title {
+  font-size: 2.2rem;
+  color: var(--text-dark-green);
+  margin-bottom: 16px;
+  font-weight: 800;
+}
+
+.letter-desc {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 36px;
+}
+
+.letter-btn {
+  display: inline-block;
+  padding: 16px 36px;
+  background-color: var(--sidebar-mint);
+  color: var(--text-dark-green);
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: 24px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  /* Claymorphism button */
+  box-shadow: 
+    6px 6px 14px rgba(160, 190, 182, 0.7),
+    inset 3px 3px 6px rgba(255, 255, 255, 0.8),
+    inset -3px -3px 6px rgba(155, 185, 178, 0.4);
+}
+
+.letter-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    8px 12px 18px rgba(160, 190, 182, 0.8),
+    inset 3px 3px 6px rgba(255, 255, 255, 0.9),
+    inset -3px -3px 6px rgba(155, 185, 178, 0.3);
+}
+
+.letter-btn:active {
+  transform: translateY(0);
+  box-shadow: 
+    inset 4px 4px 8px rgba(155, 185, 178, 0.6),
+    inset -2px -2px 4px rgba(255, 255, 255, 0.8);
+}
+
+/* Bagian Depan Amplop (Pocket) */
+.envelope-front-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: clamp(200px, 23.3vw, 280px); /* Sama dengan tinggi amplop belakang */
+  z-index: 3;
+  pointer-events: none; /* Klik tembus ke surat & tombol */
+  /* Drop shadow menghasilkan bayangan mengikuti bentuk clip-path */
+  filter: drop-shadow(0 -8px 16px rgba(40, 70, 62, 0.12));
+}
+
+.envelope-front {
+  width: 100%;
+  height: 100%;
+  background-color: var(--sidebar-mint);
+  border-radius: 12px 12px 32px 32px;
+  /* Bentuk potongan V khas kantong amplop */
+  clip-path: polygon(0 0, 50% 35%, 100% 0, 100% 100%, 0 100%);
+}
+
+/* ==========================================================================
+   Responsive Adaptations for Tablets and Mobile
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Tablet: 1024px — sidebar tetap, konten diperkecil
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  /* Reduce sidebar offset for narrower screens */
+  .about-section,
+  .project-section {
+    padding-left: 260px;
+    padding-right: 32px;
+  }
+
+  /* Scale down about headings */
+  .about-heading {
+    font-size: 2.4rem;
+  }
+
+  .about-grid {
+    column-gap: 32px;
+  }
+
+  /* Shrink lanyard a bit */
+  .lanyard-img {
+    max-height: 70vh;
+  }
+
+  /* Project slider: still 3 cards but tighter */
+  .project-card {
+    flex: 0 0 calc((100% - 40px) / 3);
+  }
+
+  /* Smaller project heading */
+  .project-heading {
+    font-size: 2.2rem;
+  }
+
+  /* Reduce sidebar slightly */
+  .clay-sidebar {
+    width: 190px;
+    padding: 32px 18px;
+  }
+
+  .portfolio-header {
+    left: 16px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile: 768px — bottom nav, stacked layout
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  /* Prevent any horizontal scroll */
+  html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+
+  /* --- Sidebar becomes bottom floating nav --- */
+  .portfolio-header {
+    top: auto;
+    bottom: 24px; /* Diberi jarak lebih dari bawah layar */
+    left: 24px;   /* Diberi jarak lebih dari kiri layar */
+    right: 24px;  /* Diberi jarak lebih dari kanan layar */
+    transform: none;
+    height: auto;
+    width: auto;
+    max-width: none;
+    z-index: 200;
+    justify-content: center;
+  }
+
+  .clay-sidebar {
+    width: 100%;
+    min-width: unset;
+    max-width: none;
+    height: auto;
+    border-radius: 28px;
+    padding: 12px 20px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .nav-menu {
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    gap: 12px; /* Jarak antar menu di mobile diperbesar */
+  }
+
+  .nav-item {
+    width: auto;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .nav-link {
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-width: 56px;
+  }
+
+  .nav-icon {
+    font-size: 1.15rem;
+    width: auto;
+  }
+
+  .nav-text {
+    font-size: 0.72rem;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  /* --- Main content: no left margin, bottom padding for nav --- */
+  main {
+    margin-left: 0;
+    width: 100%;
+    /* Ruang bawah agar konten tidak tertutup bottom nav */
+    padding-bottom: 100px;
+  }
+
+  /* --- Home Section --- */
+  .home-section {
+    min-height: 100svh; /* Small viewport height */
+  }
+
+  /* Matrix Rain di mobile (mengisi area kosong bekas sidebar) */
+  .matrix-canvas.left {
+    left: 0;
+    width: 50vw; /* Diperlebar agar tidak ada bolong di tengah */
+  }
+
+  .matrix-canvas.right {
+    right: 0;
+    width: 50vw; /* Bertemu dengan bagian kiri di tengah layar */
+  }
+
+  .portfolio-name {
+    font-size: clamp(1.8rem, 7vw, 2.4rem); /* Disesuaikan agar dinamis di berbagai ukuran layar HP */
+    padding: clamp(8px, 2vw, 12px) clamp(16px, 5vw, 24px);
+    text-align: center;
+  }
+
+  .home-character {
+    height: 65vh; /* Diperkecil sesuai permintaan agar proporsional di HP */
+    transform: translateX(0); /* Ditarik ke kiri/tengah khusus mobile */
+  }
+
+  .title-layer {
+    padding-bottom: 14vh;
+    transform: translateX(8px); /* Teks ditarik sedikit ke kanan sesuai permintaan */
+  }
+
+  /* --- About Section --- */
+  .about-section {
+    /* Padding atas diperbesar agar teks dan lanyard sedikit turun (menjauhi navbar/home) */
+    padding: 100px 20px 60px 20px;
+    min-height: auto;
+  }
+
+  .about-container {
+    position: relative;
+    display: block; /* Hilangkan flex column agar teks mengambil seluruh ruang */
+  }
+
+  /* Timpa lanyard di atas teks (pojok kanan) dengan ukuran lebih besar */
+  .about-left {
+    position: absolute;
+    /* Diturunkan agar letak lanyard lebih ke bawah menyatu dengan teks */
+    top: 0; 
+    right: -15px;
+    width: 240px; 
+    height: auto;
+    display: flex;
+    justify-content: flex-end;
+    transform: none;
+    z-index: 10;
+    pointer-events: none; /* Biarkan teks di bawahnya bisa diklik */
+  }
+
+  .lanyard-img {
+    max-width: 100%; 
+    max-height: none;
+    pointer-events: auto; /* Gambarnya tetap bisa ditarik */
+    /* Hapus opacity agar solid sepenuhnya seperti versi website */
+  }
+
+  .about-right {
+    width: 100%;
+    order: 1;
+    transform: none; /* Kembalikan ke normal di mobile */
+  }
+
+  .about-heading {
+    font-size: 1.9rem;
+  }
+
+  .about-intro {
+    font-size: 1rem;
+    margin-bottom: 32px;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 24px;
+    row-gap: 28px;
+  }
+
+  .block-title {
+    font-size: 0.78rem;
+  }
+
+  .block-list li {
+    font-size: 0.9rem;
+  }
+
+  /* --- Project Section --- */
+  .project-section {
+    padding: 60px 0 80px 0; /* Tambah ruang atas dan bawah */
+    min-height: auto;
+    height: auto;
+  }
+
+  .project-container {
+    gap: 64px; /* Lebih lega antara heading dan slider */
+  }
+
+  .project-header {
+    padding: 0 20px;
+  }
+
+  .project-heading {
+    font-size: 2.5rem; /* Diperbesar sesuai permintaan */
+  }
+
+  .project-heading::before,
+  .project-heading::after {
+    margin: 0 12px;
+    max-width: 80px;
+  }
+
+  /* Tombol overlay di atas sisi kiri/kanan card */
+  .slider-wrapper {
+    gap: 0;
+    position: relative;
+  }
+
+  .slider-btn {
+    display: flex; /* Tampilkan kembali */
+    position: absolute;
+    top: 45%; /* Kira-kira setinggi area gambar card */
+    transform: translateY(-50%);
+    z-index: 20;
+    width: 40px;
+    height: 40px;
+  }
+
+  .prev-btn {
+    left: 12px; /* Digeser agak ke kanan sedikit sesuai permintaan */
+  }
+
+  .next-btn {
+    right: 12px; /* Disesuaikan simetris */
+  }
+
+  .project-slider {
+    padding: 24px 56px 40px 56px; /* Padding sisi lebih lebar lagi */
+    scroll-padding-left: 56px; /* Agar snap mobile sesuai dengan padding */
+    width: 100%;
+    flex: 1;
+    gap: 18px; /* Jarak antar project diubah ke 18px sesuai permintaan */
+  }
+
+  /* Kartu lebih lebar (landscape/kotak lebar) seperti referensi */
+  .project-card {
+    flex: 0 0 82%;
+    padding: 24px 24px 20px 24px;
+  }
+
+  /* Area gambar 4/3 agar kartu melebar ke samping (landscape) di mobile */
+  .card-image-placeholder {
+    aspect-ratio: 4/3;
+    /* Font size dinamis untuk mobile */
+    font-size: clamp(1.5rem, 10vw, 3.2rem);
+    margin-bottom: 20px;
+    flex: none;
+  }
+
+  .card-number {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+
+  .project-title {
+    font-size: 1.1rem;
+  }
+
+  /* --- Floating WA Button: tepat di atas menu Contact --- */
+  .whatsapp-fab {
+    /* navbar: bottom 12px, tinggi ~80px → top navbar ±92px */
+    /* beri gap 20px di atas navbar → bottom: 112px */
+    bottom: 112px;
+    right: 24px; /* sejajar dengan posisi Contact di kanan */
+    width: 56px;
+    height: 56px;
+    font-size: 1.7rem;
+  }
+
+  /* --- Modal di mobile --- */
+  .modal-content {
+    width: min(88vw, 340px);
+    padding: 28px;
+  }
+
+  .modal-close {
+    top: 32px;   /* Diturunkan di mobile */
+    right: 32px; /* Digeser ke kiri di mobile */
+    width: 56px;
+    height: 56px;
+    font-size: 3rem;
+  }
+
+  /* --- Contact Section --- */
+  .contact-section {
+    padding: 60px 24px 120px 24px; /* Padding sedikit dilebarkan */
+    min-height: auto;
+  }
+
+  .envelope-wrapper {
+    margin-top: 40px;
+    height: 360px;
+    width: 88%; /* Supaya ada jarak di kiri-kanan layar */
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .envelope-back,
+  .envelope-front-wrapper {
+    height: 220px;
+  }
+
+  .letter {
+    bottom: 20px;
+    padding: 32px 24px;
+  }
+
+  /* Surat harus naik 110px agar tombol email tidak tertutup kantong depan (220px) */
+  .envelope-wrapper:hover .letter {
+    transform: translateY(-110px);
+  }
+
+  .letter-title {
+    font-size: 1.6rem;
+  }
+
+  .letter-desc {
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+  }
+
+  .letter-btn {
+    padding: 14px 28px;
+    font-size: 0.9rem;
+  }
+}
+
